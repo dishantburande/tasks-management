@@ -120,15 +120,6 @@
 
 // export default Header;
 
-
-
-
-
-
-
-
-
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
@@ -138,10 +129,12 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
 
 function Header({ setTask, setIsAuthenticated, isAuthenticated, setTaskType }) {
   const [allTask, setAllTask] = useState([]);
   const [theme, setTheme] = useState("light");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Apply theme class to the body
   useEffect(() => {
@@ -201,10 +194,25 @@ function Header({ setTask, setIsAuthenticated, isAuthenticated, setTaskType }) {
     }
 
     setTask(filteredTasks);
+    setSearchQuery("");
   };
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    const filtered = allTask.filter(
+      (task) =>
+        task.title.toLowerCase().includes(query) ||
+        task.description.toLowerCase().includes(query)
+    );
+
+    setTask(filtered);
+    setTaskType("Search Results");
   };
 
   return (
@@ -219,7 +227,7 @@ function Header({ setTask, setIsAuthenticated, isAuthenticated, setTaskType }) {
           <Nav className="me-auto align-items-center gap-2">
             <Link
               to={"/"}
-              className="text-decoration-none d-flex align-items-center link-light"
+              className="text-decoration-none d-flex align-items-center header-link"
             >
               Home
             </Link>
@@ -244,19 +252,32 @@ function Header({ setTask, setIsAuthenticated, isAuthenticated, setTaskType }) {
               Profile
             </Link>
             <Button
-              className="bg-transparent border-0"
-              style={{ width: "fit-content" }}
+              className={`bg-transparent border-0 header-link ${
+                theme === "dark" ? "text-light" : "text-dark"
+              }`}
               onClick={handleLogout}
             >
               LOGOUT
             </Button>
+
             <Button
-              className="ms-2"
-              variant={theme === "dark" ? "light" : "dark"}
+              className={`ms-2 theme-toggle-btn btn btn-dark ${
+                theme === "dark" ? "btn-light btn btn-primary" : "btn-dark"
+              }`}
               onClick={toggleTheme}
             >
               {theme === "dark" ? "Light Theme" : "Dark Theme"}
             </Button>
+
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search Tasks"
+                className="me-2"
+                value={searchQuery}
+                onChange={handleSearch}
+              />
+            </Form>
           </Nav>
         </Navbar.Collapse>
       </Container>
