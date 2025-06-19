@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    axios
+   await axios
       .post(
         "https://tasks-management-8w5a.onrender.com/api/v1/user/login",
         { email, password },
