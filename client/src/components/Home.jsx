@@ -36,7 +36,7 @@ const Home = () => {
 
   const deleteTask = async (id) => {
     await axios
-      .delete(`http://localhost:8000/api/v1/task/delete/${id}`, {
+      .delete(`https://tasks-management-8w5a.onrender.com/api/v1/task/delete/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
