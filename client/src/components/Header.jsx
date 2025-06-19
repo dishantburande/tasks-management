@@ -19,7 +19,13 @@ function Header() {
   const [theme, setTheme] = useState("light");
   const [searchQuery, setSearchQuery] = useState("");
 
-  useFetchTasks(isAuthenticated);
+  const fetchedTasks = useFetchTasks(isAuthenticated);
+
+ useEffect(() => {
+  console.log("Fetched Tasks in Header:", fetchedTasks); // debug
+  setAllTask(fetchedTasks);
+}, [fetchedTasks]);
+
 
   // Apply theme class to the body
   useEffect(() => {
@@ -39,31 +45,32 @@ function Header() {
     }
   };
 
-  const filterTasks = (filterType) => {
-    let filteredTasks = [];
+ const filterTasks = (filterType) => {
+  let filteredTasks = [];
 
-    switch (filterType) {
-      case "completed":
-        filteredTasks = allTask.filter((task) => task.status === "completed");
-        setTaskType("Completed Tasks");
-        break;
-      case "incomplete":
-        filteredTasks = allTask.filter((task) => task.status === "incomplete");
-        setTaskType("Incomplete Tasks");
-        break;
-      case "archived":
-        filteredTasks = allTask.filter((task) => task.archived === true);
-        setTaskType("Archived Tasks");
-        break;
-      case "all":
-      default:
-        filteredTasks = allTask;
-        setTaskType("Tasks");
-    }
+  switch (filterType) {
+    case "completed":
+      filteredTasks = fetchedTasks.filter((task) => task.status === "completed");
+      setTaskType("Completed Tasks");
+      break;
+    case "incomplete":
+      filteredTasks = fetchedTasks.filter((task) => task.status === "incomplete");
+      setTaskType("Incomplete Tasks");
+      break;
+    case "archived":
+      filteredTasks = fetchedTasks.filter((task) => task.archived === true);
+      setTaskType("Archived Tasks");
+      break;
+    case "all":
+    default:
+      filteredTasks = fetchedTasks;
+      setTaskType("Tasks");
+  }
 
-    setTask(filteredTasks);
-    setSearchQuery("");
-  };
+  setTask(filteredTasks);
+  setSearchQuery("");
+};
+
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));

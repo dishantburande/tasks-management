@@ -7,13 +7,8 @@ import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useAppContext } from "./context/AppContext";
 
-
 const Login = () => {
-  
-  const {
-     isAuthenticated,
-     setIsAuthenticated
-   } = useAppContext();
+  const { isAuthenticated, setIsAuthenticated } = useAppContext();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +31,7 @@ const Login = () => {
         toast.success(res.data.message);
       })
       .catch((error) => {
-        toast.error(error.data.message);
+        toast.error(error.response?.data?.message || "Login failed");
       });
   };
   if (isAuthenticated) {

@@ -16,5 +16,7 @@ router.delete("/delete/:id", isAuthenticated, deleteTask);
 router.put("/update/:id", isAuthenticated, updateTask);
 router.get("/mytask", isAuthenticated, getMyTask);
 router.get("/single/:id", isAuthenticated, getSingleTask);
+router.get("/my", isAuthenticated, getMyTask);
+
 
 export default router;
