@@ -37,7 +37,7 @@ useEffect(() => {
   const handleLogout = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/v1/user/logout",
+        "https://tasks-management-8w5a.onrender.com/api/v1/user/logout",
         { withCredentials: "true" }
       );
       toast.success(data.message);
