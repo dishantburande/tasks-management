@@ -1,32 +1,34 @@
-// useFetchTasks.js
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAppContext } from "../components/context/AppContext";
 import toast from "react-hot-toast";
+import { useAppContext } from "../components/context/AppContext.jsx";
 
-const useFetchTasks = (isAuthenticated) => {
+const useFetchTasks = (shouldFetch = true) => {
   const { setTask } = useAppContext();
-  const [fetchedTasks, setFetchedTasks] = useState([]);
+  const [tasks, setTasks] = useState([]); // ✅ Local state to return
 
   useEffect(() => {
     const fetchTasks = async () => {
-      if (!isAuthenticated) return;
-
       try {
-     const { data } = await axios.get("http://localhost:8000/api/v1/task/my", {
-          withCredentials: true,
-        });
-        setTask(data.tasks);
-        setFetchedTasks(data.tasks); // set for local use
+        const { data } = await axios.get(
+          "http://localhost:8000/api/v1/task/mytask",
+          {
+            withCredentials: true,
+          }
+        );
+        setTask(data.tasks);    // ✅ Update global context
+        setTasks(data.tasks);   // ✅ Update local state
       } catch (error) {
-        toast.error(error.response?.data?.message || "Failed to fetch tasks");
+        toast.error("Failed to fetch tasks");
+        console.error("Error fetching tasks:", error);
+        setTasks([]); // fallback to empty
       }
     };
 
-    fetchTasks();
-  }, [isAuthenticated, setTask]);
+    if (shouldFetch) fetchTasks();
+  }, [shouldFetch, setTask]);
 
-  return fetchedTasks;
+  return tasks; // ✅ return the fetched tasks
 };
 
 export default useFetchTasks;

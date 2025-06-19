@@ -21,10 +21,12 @@ function Header() {
 
   const fetchedTasks = useFetchTasks(isAuthenticated);
 
- useEffect(() => {
-  console.log("Fetched Tasks in Header:", fetchedTasks); // debug
+useEffect(() => {
+  if (!Array.isArray(fetchedTasks)) return; // ✅ safeguard
+  console.log("Fetched Tasks in Header:", fetchedTasks);
   setAllTask(fetchedTasks);
 }, [fetchedTasks]);
+
 
 
   // Apply theme class to the body
@@ -45,32 +47,31 @@ function Header() {
     }
   };
 
- const filterTasks = (filterType) => {
-  let filteredTasks = [];
+  const filterTasks = (filterType) => {
+    let filteredTasks = [];
 
-  switch (filterType) {
-    case "completed":
-      filteredTasks = fetchedTasks.filter((task) => task.status === "completed");
-      setTaskType("Completed Tasks");
-      break;
-    case "incomplete":
-      filteredTasks = fetchedTasks.filter((task) => task.status === "incomplete");
-      setTaskType("Incomplete Tasks");
-      break;
-    case "archived":
-      filteredTasks = fetchedTasks.filter((task) => task.archived === true);
-      setTaskType("Archived Tasks");
-      break;
-    case "all":
-    default:
-      filteredTasks = fetchedTasks;
-      setTaskType("Tasks");
-  }
+    switch (filterType) {
+      case "completed":
+        filteredTasks = allTask.filter((task) => task.status === "completed");
+        setTaskType("Completed Tasks");
+        break;
+      case "incomplete":
+        filteredTasks = allTask.filter((task) => task.status === "incomplete");
+        setTaskType("Incomplete Tasks");
+        break;
+      case "archived":
+        filteredTasks = allTask.filter((task) => task.archived === true);
+        setTaskType("Archived Tasks");
+        break;
+      case "all":
+      default:
+        filteredTasks = allTask;
+        setTaskType("Tasks");
+    }
 
-  setTask(filteredTasks);
-  setSearchQuery("");
-};
-
+    setTask(filteredTasks);
+    setSearchQuery("");
+  };
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));

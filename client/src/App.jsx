@@ -6,7 +6,7 @@ import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import Header from "./components/Header.jsx";
 import Profile from "./components/Profile.jsx";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useAppContext } from "../src/components/context/AppContext.jsx";
@@ -38,7 +38,7 @@ function App() {
       }
     };
     handleGetIUser();
-  },[]);
+  },[setIsAuthenticated, setUser]);
 
   return (
     <Router>
