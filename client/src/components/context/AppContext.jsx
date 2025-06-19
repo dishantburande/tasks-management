@@ -15,7 +15,7 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("http://localhost:8000/api/v1/user/me", {
+        const { data } = await axios.get("https://tasks-management-8w5a.onrender.com/api/v1/user/me", {
           withCredentials: true,
         });
         setIsAuthenticated(true);
