@@ -38,7 +38,7 @@ app.use(
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/task", taskRouter);
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 Connection(USERNAME, PASSWORD);
 
