@@ -8,7 +8,7 @@ const ViewTaskModel = ({ handleViewModalClose, showViewModal, id }) => {
   useEffect(() => {
     const getSingleTask = async () => {
       await axios
-        .get(`http://localhost:8000/api/v1/task/single/${id}`, {
+        .get(`https://tasks-management-8w5a.onrender.com/api/v1/task/single/${id}`, {
           withCredentials: true,
         })
         .then((res) => setTask(res.data.task))
