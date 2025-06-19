@@ -9,12 +9,16 @@ import Profile from "./components/Profile.jsx";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { useAppContext } from "../src/components/context/AppContext.jsx";
+
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [task, setTask] = useState([]);
-  const [user, setUser] = useState({});
-  const [taskType, setTaskType] = useState("Tasks");
+
+ const {
+  setIsAuthenticated,
+  setUser, 
+} = useAppContext();
+
 
   useEffect(() => {
     const handleGetIUser = async () => {
@@ -34,53 +38,16 @@ function App() {
       }
     };
     handleGetIUser();
-  }, [isAuthenticated]);
+  },[]);
 
   return (
     <Router>
-      <Header
-        isAuthenticated={isAuthenticated}
-        setIsAuthenticated={setIsAuthenticated}
-        task={task}
-        setTask={setTask}
-        setTaskType={setTaskType}
-      />
+      <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              task={task}
-              setTask={setTask}
-              isAuthenticated={isAuthenticated}
-              taskType={taskType}
-            />
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Login
-              isAuthenticated={isAuthenticated}
-              setIsAuthenticated={setIsAuthenticated}
-            />
-          }
-        />
-
-        <Route
-          path="/register"
-          element={
-            <Register
-              isAuthenticated={isAuthenticated}
-              setIsAuthenticated={setIsAuthenticated}
-            />
-          }
-        />
-
-        <Route
-          path="/profile"
-          element={<Profile user={user} isAuthenticated={isAuthenticated} />}
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Toaster />
     </Router>

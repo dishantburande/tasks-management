@@ -4,18 +4,35 @@ import { Navigate } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { Button, Card, Stack } from "react-bootstrap";
+import { useAppContext } from "./context/AppContext";
+import useFetchTasks from "../costomHooks/useFetchTask.js"; 
+
+
 
 import CreateTaskModal from "../components/CreateTaskModel.jsx";
 import UpdateTaskModal from "./UpdateTaskModal.jsx";
 import ViewTaskModal from "./ViewTaskModal.jsx";
 import toast from "react-hot-toast";
 
-const Home = ({ task, setTask, isAuthenticated, taskType }) => {
+const Home = () => {
+
+
+  const {
+    isAuthenticated,
+    setTask,
+    task,
+    taskType,
+  } = useAppContext();
+
+
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [viewTaskId, setViewTaskId] = useState(null);
   const [updatedTaskId, setUpdateTaskId] = useState(null);
+
+    useFetchTasks(isAuthenticated);
+
 
   const deleteTask = async (id) => {
     await axios

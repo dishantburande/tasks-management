@@ -5,8 +5,14 @@ import { Navigate, Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useAppContext } from "./context/AppContext.jsx";
 
-const Register = ({ isAuthenticated, setIsAuthenticated }) => {
+
+const Register = () => {
+
+
+    const { isAuthenticated, setIsAuthenticated } = useAppContext();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

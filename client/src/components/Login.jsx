@@ -5,8 +5,16 @@ import { Navigate, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { useAppContext } from "./context/AppContext";
 
-const Login = ({ setIsAuthenticated, isAuthenticated }) => {
+
+const Login = () => {
+  
+  const {
+     isAuthenticated,
+     setIsAuthenticated
+   } = useAppContext();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

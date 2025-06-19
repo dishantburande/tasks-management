@@ -1,6 +1,3 @@
-
-   
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
@@ -11,33 +8,23 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
+import { useAppContext } from "./context/AppContext";
+import useFetchTasks from "../costomHooks/useFetchTask.js";
 
-function Header({ setTask, setIsAuthenticated, isAuthenticated, setTaskType }) {
+function Header() {
+  const { isAuthenticated, setIsAuthenticated, setTask, setTaskType } =
+    useAppContext();
+
   const [allTask, setAllTask] = useState([]);
   const [theme, setTheme] = useState("light");
   const [searchQuery, setSearchQuery] = useState("");
+
+  useFetchTasks(isAuthenticated);
 
   // Apply theme class to the body
   useEffect(() => {
     document.body.className = theme === "dark" ? "dark-theme" : "light-theme";
   }, [theme]);
-
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8000/api/v1/task/mytask",
-        { withCredentials: true }
-      );
-      setAllTask(response.data.tasks);
-      setTask(response.data.tasks);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTasks();
-  }, [isAuthenticated]);
 
   const handleLogout = async () => {
     try {

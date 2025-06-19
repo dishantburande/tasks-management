@@ -1,8 +1,13 @@
 import React from "react";
 import { Container, Stack } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { useAppContext } from "./context/AppContext";
 
-const profile = ({ user, isAuthenticated }) => {
+
+const Profile = () => {
+
+     const { user, isAuthenticated } = useAppContext();
+
   if (!isAuthenticated) {
     return <Navigate to={"/login"} />;
   }
@@ -43,4 +48,4 @@ const profile = ({ user, isAuthenticated }) => {
   );
 };
 
-export default profile;
+export default Profile;
