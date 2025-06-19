@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import axios from  'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Button, Modal, Stack } from "react-bootstrap";
 
-const ViewTaskModel = ({ handleViewModalClose, showViewModal, id}) => {
+const ViewTaskModel = ({ handleViewModalClose, showViewModal, id }) => {
+  const [task, setTask] = useState([]);
 
-  const [task , setTask] = useState([])
-
-  useEffect(()=>{
-    const getSingleTask  = async()=>{
-      await axios.get(`http://localhost:8000/api/v1/task/single/${id}`, { withCredentials: true, }).then((res)=> setTask(res.data.task)
-    ).catch((error)=> {
-      console.log(error.response.data.message)
-    })
-    }
-    if(id){
+  useEffect(() => {
+    const getSingleTask = async () => {
+      await axios
+        .get(`http://localhost:8000/api/v1/task/single/${id}`, {
+          withCredentials: true,
+        })
+        .then((res) => setTask(res.data.task))
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+    };
+    if (id) {
       getSingleTask();
     }
-  },[id])
-
+  }, [id]);
 
   return (
-     <>
+    <>
       <Modal show={showViewModal} onHide={handleViewModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>View Task</Modal.Title>
@@ -42,7 +44,7 @@ const ViewTaskModel = ({ handleViewModalClose, showViewModal, id}) => {
         </Modal.Footer>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default ViewTaskModel
+export default ViewTaskModel;

@@ -2,8 +2,6 @@ import React from "react";
 import { Container, Stack } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
-
-
 const profile = ({ user, isAuthenticated }) => {
   if (!isAuthenticated) {
     return <Navigate to={"/login"} />;

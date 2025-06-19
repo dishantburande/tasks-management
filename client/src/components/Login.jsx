@@ -1,32 +1,42 @@
-import axios from 'axios'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import { Navigate,Link } from 'react-router-dom'
-import Form from 'react-bootstrap/Form';
-import { Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+import axios from "axios";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { Navigate, Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import { Container } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
-const Login = ({setIsAuthenticated, isAuthenticated}) => {
-  const [ email, setEmail] = useState("")
-  const [ password, setPassword] = useState("")
+const Login = ({ setIsAuthenticated, isAuthenticated }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = async(e)=>{
+  const handleLogin = async (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8000/api/v1/user/login", {email, password}, {withCredentials: true, headers: {"Content-Type": "application/json"}}).then((res)=>{
-      setEmail("");
-      setPassword("");
-      setIsAuthenticated(true);
-      toast.success(res.data.message);
-    }).catch((error)=> {
-      toast.error(error.data.message)
-    })
-  }
-  if(isAuthenticated){
-    return <Navigate to={"/"}/>
+    axios
+      .post(
+        "http://localhost:8000/api/v1/user/login",
+        { email, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((res) => {
+        setEmail("");
+        setPassword("");
+        setIsAuthenticated(true);
+        toast.success(res.data.message);
+      })
+      .catch((error) => {
+        toast.error(error.data.message);
+      });
+  };
+  if (isAuthenticated) {
+    return <Navigate to={"/"} />;
   }
 
   return (
-     <Container
+    <Container
       className="d-flex justify-content-center align-items-center overflow-y-hidden"
       style={{ minHeight: "800px" }}
     >
@@ -71,7 +81,7 @@ const Login = ({setIsAuthenticated, isAuthenticated}) => {
         </Button>
       </Form>
     </Container>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

@@ -14,7 +14,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [task, setTask] = useState([]);
   const [user, setUser] = useState({});
-  const [ taskType, setTaskType] = useState("Tasks")
+  const [taskType, setTaskType] = useState("Tasks");
 
   useEffect(() => {
     const handleGetIUser = async () => {
