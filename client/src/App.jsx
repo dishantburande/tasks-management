@@ -24,7 +24,7 @@ function App() {
     const handleGetIUser = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/v1/user/me",
+          "https://tasks-management-8w5a.onrender.com/api/v1/user/me",
           {
             withCredentials: true,
           }
