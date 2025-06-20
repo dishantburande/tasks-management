@@ -6,12 +6,15 @@ import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useAppContext } from "./context/AppContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
 
 
     const { isAuthenticated, setIsAuthenticated } = useAppContext();
+    const navigate = useNavigate();
+
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,6 +49,7 @@ const Register = () => {
         setAvatar("");
         setIsAuthenticated(false);
         toast.success(response.data.message);
+        navigate("/login");
       })
       .catch((error) => {
         toast.error(error.response.data.message);
