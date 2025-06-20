@@ -44,7 +44,7 @@ const Register = () => {
         setPhone("");
         setPassword("");
         setAvatar("");
-        setIsAuthenticated(true);
+        setIsAuthenticated(false);
         toast.success(response.data.message);
       })
       .catch((error) => {
