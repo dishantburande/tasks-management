@@ -11,7 +11,7 @@ const useFetchTasks = (shouldFetch = true) => {
     const fetchTasks = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/v1/task/mytask",
+          "https://tasks-management-8w5a.onrender.com/api/v1/task/mytask",
           {
             withCredentials: true,
           }
